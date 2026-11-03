@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Año Nuevo</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0B1D3A;        /* Azul marino profundo */
+            --navy-dark: #040A15;   /* Azul marino para gradiente */
+            --sky: #4A85ED;         /* Azul cielo */
+            --sky-glow: rgba(74, 133, 237, 0.6);
+            --white: #FFFFFF;
+            --white-translucent: rgba(255, 255, 255, 0.075);
+        }
+
+                .decor {
+            position: absolute;
+            mix-blend-mode: multiply; /* Elimina los fondos blancos integrando la imagen */
+            pointer-events: none;
+            z-index: 0;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+body {
+            background-color: #f7f5f0;
+            background-image: url('./asseets/fondoPrincipal.jpg');
+            background-repeat: repeat;
+            background-attachment: fixed;
+            background-size: 400px;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--navy);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+        /* Textura granulada tipo carvatipo / impresión para el fondo */
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.25;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Overlay de Bienvenida */
+        #overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--navy);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease;
+        }
+
+        .btn-overlay {
+            background-color: transparent;
+            color: var(--sky);
+            border: 2px solid var(--sky);
+            padding: 15px 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 30px;
+            box-shadow: 0 0 15px var(--sky-glow);
+        }
+
+        .btn-overlay:hover {
+            background-color: var(--sky);
+            color: var(--navy);
+            box-shadow: 0 0 25px var(--sky);
+        }
+
+        /* Contenedor Principal */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        /* Tarjeta Glassmorphism */
+        .card {
+            background: var(--white-translucent);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 25px;
+            padding: 40px 20px 50px 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        /* Luces de cadena */
+        .string-lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            opacity: 0.8;
+        }
+
+        /* Tipografía */
+        h1.title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin: 20px 0 5px 0;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h2.subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--navy-dark);
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* Elementos Decorativos */
+        .star-icon {
+            fill: var(--sky);
+            filter: drop-shadow(0 0 8px var(--sky-glow));
+        }
+
+        .star-decor {
+            position: absolute;
+            opacity: 0.6;
+        }
+        
+        .star-decor.s1 { top: 20px; right: 20px; width: 40px; transform: rotate(15deg); }
+        .star-decor.s2 { bottom: 80px; left: 15px; width: 30px; transform: rotate(-20deg); }
+        
+        .divider {
+            width: 50px;
+            height: 2px;
+            background: var(--navy);
+            margin: 25px auto;
+            opacity: 0.3;
+        }
+
+        /* Detalles del evento */
+        .event-detail {
+            margin: 20px 0;
+        }
+
+        .event-detail h3 {
+            font-size: 0.85rem;
+            color: var(--sky);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .event-detail p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .btn-map {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 20px;
+            border: 1px solid var(--sky);
+            color: var(--navy);
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .btn-map:hover {
+            background-color: var(--navy);
+            color: var(--white);
+        }
+
+        /* Cuenta Regresiva */
+        .countdown-box {
+            background: var(--navy);
+            border: 2px solid var(--navy-dark);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 30px auto 10px auto;
+            width: 90%;
+            color: var(--white);
+        }
+
+        .countdown-title {
+            font-size: 0.8rem;
+            color: var(--sky);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .time-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .time-num {
+            font-size: 1.5rem;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .time-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        /* RSVP */
+        .btn-rsvp {
+            display: block;
+            width: 90%;
+            margin: 30px auto 0 auto;
+            background-color: var(--sky);
+            color: var(--navy);
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px var(--sky-glow);
+        }
+
+        .btn-rsvp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 180, 248, 0.8);
+        }
+
+        @media (max-width: 400px) {
+            h1.title { font-size: 2.2rem; }
+            .time-num { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Textura Global -->
+    <div class="texture-overlay"></div>
+
+    <!-- Pantalla de Carga -->
+    <div id="overlay">
+        <!-- Estrella de bienvenida (Estilo asimétrico) -->
+        <svg class="star-icon" viewBox="0 0 100 100" width="80" height="80">
+            <path d="M50 0 L55 35 L95 40 L60 55 L70 95 L50 65 L25 90 L40 55 L5 45 L45 35 Z" />
+        </svg>
+        <button class="btn-overlay" onclick="comenzarInvitacion()">Abrir Invitación</button>
+    </div>
+
+    <!-- Contenido -->
+    <div class="container">
+        <div class="card">
+            
+            <!-- Luces de Cadena Superiores -->
+<svg class="string-lights" viewBox="0 0 300 50" preserveAspectRatio="none">
+                <!-- Cables -->
+                <path d="M0 10 Q 50 30, 100 10 T 200 10 T 300 10" fill="none" stroke="rgba(11,29,58,0.2)" stroke-width="1.5"/>
+                <!-- Focos -->
+                <circle cx="30" cy="20" r="3" fill="#FFF" filter="drop-shadow(0 0 4px #FFF)"></circle>
+                <circle cx="70" cy="25" r="3" fill="var(--sky)" filter="drop-shadow(0 0 5px var(--sky))"></circle>
+                <circle cx="120" cy="18" r="3" fill="#FFF" filter="drop-shadow(0 0 4px #FFF)"></circle>
+                <circle cx="160" cy="24" r="3" fill="var(--sky)" filter="drop-shadow(0 0 5px var(--sky))"></circle>
+                <circle cx="210" cy="15" r="3" fill="#FFF" filter="drop-shadow(0 0 4px #FFF)"></circle>
+                <circle cx="260" cy="23" r="3" fill="var(--sky)" filter="drop-shadow(0 0 5px var(--sky))"></circle>
+            </svg>
+
+            <!-- Estrellas Decorativas (Trazos tipo carvatipo) -->
+            <svg class="star-icon star-decor s1" viewBox="0 0 100 100">
+                <path d="M50 5 L55 42 L95 48 L58 58 L68 95 L48 65 L10 75 L38 52 L5 42 L42 38 Z" />
+            </svg>
+            <svg class="star-icon star-decor s2" viewBox="0 0 100 100">
+                <path d="M50 0 L58 35 L100 50 L58 65 L50 100 L42 65 L0 50 L42 35 Z" />
+            </svg>
+
+            <div style="margin-top: 20px;">
+                <svg class="star-icon" viewBox="0 0 100 100" width="30" height="30">
+                    <path d="M50 0 L55 35 L95 40 L60 55 L70 95 L50 65 L25 90 L40 55 L5 45 L45 35 Z" />
+                </svg>
+            </div>
+
+            <h1 class="title">¡Celebremos el<br>Año Nuevo!</h1>
+            <h2 class="subtitle">Bajo mis estrellas favoritas</h2>
+
+            <div class="divider"></div>
+
+            <div class="event-detail">
+                <h3>Cuándo</h3>
+                <p>Jueves, 31 de Diciembre de 2026</p>
+                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 3px;">A partir de las 06:00 p.m.</p>
+            </div>
+
+            <div class="event-detail">
+                <h3>Dónde</h3>
+                <p>Finca La Quinta</p>
+                <a href="https://maps.app.goo.gl/QEUWW8fU1nFpMpWt6" class="btn-map">Ver en Mapa</a>
+            </div>
+
+            <div class="event-detail">
+                <h3>Temática</h3>
+                <p>Estrellas</p>
+            </div>
+
+            <div class="event-detail">
+                <h3>Colores</h3>
+                <p>Azul (Marino y cielo) y Blanco</p>
+            </div>
+
+            <div class="event-detail">
+                <h3>Intercambio</h3>
+                <p>De pijamas</p>
+            </div>
+
+            <div class="countdown-box">
+                <div class="countdown-title">Faltan para el 2027</div>
+                <div class="timer" id="countdown">
+                    <div class="time-block"><span class="time-num" id="d">00</span><span class="time-label">Días</span></div>
+                    <div class="time-block"><span class="time-num">:</span><span class="time-label"></span></div>
+                    <div class="time-block"><span class="time-num" id="h">00</span><span class="time-label">Hrs</span></div>
+                    <div class="time-block"><span class="time-num">:</span><span class="time-label"></span></div>
+                    <div class="time-block"><span class="time-num" id="m">00</span><span class="time-label">Min</span></div>
+                    <div class="time-block"><span class="time-num">:</span><span class="time-label"></span></div>
+                    <div class="time-block"><span class="time-num" id="s">00</span><span class="time-label">Seg</span></div>
+                </div>
+            </div>
+
+            <a href="https://wa.me/7712289304?text=Hola,%20confirmo%20mi%20asistencia%20a%20la%20fiesta%20de%20A%C3%B1o%20Nuevo!" class="btn-rsvp" target="_blank" style="line-height: 1.4;">
+                CONFIRMAR ASISTENCIA<br>
+                <span style="font-size: 0.85em; font-weight: 400;">WhatsApp o llamada: 771 228 9304</span>
+            </a>
+        </div>
+    </div>
+    <!-- Audio de Fondo -->
+    <audio id="musicaFondo" loop>
+        <source src="asseets/Kool & The Gang - Celebration.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+       function comenzarInvitacion() {
+            const overlay = document.getElementById('overlay');
+            const audio = document.getElementById('musicaFondo');
+            
+            // Iniciar música
+            audio.play().catch(error => console.log("Error al reproducir:", error));
+            
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 800);
+        }
+
+
+        // Configuración de Cuenta Regresiva para el 1 de Enero de 2027 a las 00:00:00
+        const countDownDate = new Date("January 1, 2027 00:00:00").getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "<div style='font-family: Playfair Display; color: var(--sky); font-size: 1.2rem; margin: 10px 0;'>¡FELIZ AÑO NUEVO 2027!</div>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Formatear a dos dígitos
+            document.getElementById("d").innerText = days.toString().padStart(2, '0');
+            document.getElementById("h").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("m").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("s").innerText = seconds.toString().padStart(2, '0');
+            
+        }, 1000);
+    </script>
+</body>
+</html>
